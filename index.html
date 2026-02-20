@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicine Meals</title>
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  background: #f2f2f7;
+}
+
+.header {
+  background: #4a7c59;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.screen {
+  padding: 16px;
+}
+
+.card {
+  background: white;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.small {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.back {
+  margin-bottom: 12px;
+  color: #007aff;
+  cursor: pointer;
+}
+
+.food {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Medicine Meals</div>
+<div id="app"></div>
+
+<script>
+
+const data = {
+
+  symptoms: [
+    { id: 1, name: "Headache" }
+  ],
+
+  types: [
+
+    {
+      name: "Stiff neck headache",
+      description: "Headache with stiffness in the neck.",
+      pattern: "Wind-Cold"
+    },
+
+    {
+      name: "Head feels swollen",
+      description: "Swollen or inflamed feeling in the head.",
+      pattern: "Wind-Heat"
+    },
+
+    {
+      name: "Heavy cloudy head",
+      description: "Heavy cloudy head with sluggish body feeling.",
+      pattern: "Wind-Damp"
+    },
+
+    {
+      name: "Temple headache",
+      description: "Pain at the temples, often throbbing or pulsing.",
+      pattern: "Liver Yang"
+    },
+
+    {
+      name: "Dizzy heavy headache",
+      description: "Heavy feeling in the head with dizziness or fogginess.",
+      pattern: "Phlegm-Damp"
+    },
+
+    {
+      name: "Dull throbbing headache from exhaustion",
+      description: "Dull throbbing headache with fatigue or brain fog, often better with rest or massage.",
+      pattern: "Qi Deficiency"
+    },
+
+    {
+      name: "Lightheaded tight headache",
+      description: "Tight or dull headache with dizziness or lightheadedness, often worse in the afternoon.",
+      pattern: "Blood Deficiency"
+    },
+
+    {
+      name: "Inside pressure",
+      description: "Pressure or hollow feeling inside the head, sometimes with ringing in the ears.",
+      pattern: "Kidney Deficiency"
+    },
+
+    {
+      name: "Fixed spot headache",
+      description: "Sharp, stabbing pain in a fixed spot, often described as ice-pick pain, sometimes related to injury.",
+      pattern: "Blood Stasis"
+    }
+
+  ],
+
+  foods: {
+
+    "Wind-Cold": {
+      label: "warms and disperses cold",
+      items: [
+        "Fresh ginger",
+        "Green onion",
+        "Peppermint",
+        "Spearmint",
+        "Sweet basil",
+        "Fennel",
+        "Chicken egg",
+        "Mustard seed",
+        "Cayenne pepper"
+      ]
+    },
+
+    "Wind-Heat": {
+      label: "clears heat and relieves inflammation",
+      items: [
+        "Banana",
+        "Salt",
+        "Spinach",
+        "Strawberry",
+        "Cucumber",
+        "Liver",
+        "Mung bean",
+        "Peppermint",
+        "Beet leaves"
+      ]
+    },
+
+    "Wind-Damp": {
+      label: "clears dampness and lightens the body",
+      items: [
+        "Rice",
+        "Adzuki beans",
+        "Orange peel",
+        "Celery",
+        "Peppermint",
+        "Basil",
+        "Green onion"
+      ]
+    },
+
+    "Liver Yang": {
+      label: "calms rising energy",
+      items: [
+        "Celery",
+        "Egg yolk",
+        "Cheese",
+        "Kidney beans",
+        "Duck",
+        "Oyster",
+        "Pork"
+      ]
+    },
+
+    "Phlegm-Damp": {
+      label: "clears dampness and transforms phlegm",
+      items: [
+        "Rice",
+        "Adzuki beans",
+        "Orange peel",
+        "Celery",
+        "Peppermint",
+        "Basil",
+        "Green onion"
+      ]
+    },
+
+    "Qi Deficiency": {
+      label: "supports energy and vitality",
+      items: [
+        "Rice",
+        "Potato",
+        "Carrot",
+        "Chicken",
+        "Dates",
+        "Oats"
+      ]
+    },
+
+    "Blood Deficiency": {
+      label: "nourishes the blood",
+      items: [
+        "Beet",
+        "Spinach",
+        "Egg",
+        "Chicken",
+        "Grapes",
+        "Cherry"
+      ]
+    },
+
+    "Kidney Deficiency": {
+      label: "nourishes kidney energy and supports the head",
+      items: [
+        "Black sesame",
+        "Walnut",
+        "Mulberry",
+        "Pork",
+        "Beef",
+        "Chicken",
+        "Bone marrow",
+        "Royal jelly"
+      ]
+    },
+
+    "Blood Stasis": {
+      label: "promotes circulation and reduces stagnation",
+      items: [
+        "Eggplant",
+        "Peach kernel",
+        "Vinegar",
+        "Brown sugar",
+        "Alcohol",
+        "Crab",
+        "Sardine",
+        "Tuna",
+        "Leek",
+        "Garlic"
+      ]
+    }
+
+  }
+
+};
+
+let currentScreen = "symptoms";
+let selectedType = null;
+
+function render() {
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+
+  if (currentScreen === "symptoms") {
+
+    const screen = document.createElement("div");
+    screen.className = "screen";
+
+    data.symptoms.forEach(symptom => {
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<strong>${symptom.name}</strong>`;
+      card.onclick = () => goTypes();
+
+      screen.appendChild(card);
+    });
+
+    app.appendChild(screen);
+  }
+
+  if (currentScreen === "types") {
+
+    const screen = document.createElement("div");
+    screen.className = "screen";
+
+    screen.innerHTML = `<div class="back" onclick="goSymptoms()">← Back</div>`;
+
+    data.types.forEach(type => {
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `<strong>${type.name}</strong>`;
+      card.onclick = () => goDetail(type);
+
+      screen.appendChild(card);
+    });
+
+    app.appendChild(screen);
+  }
+
+  if (currentScreen === "detail") {
+
+    const screen = document.createElement("div");
+    screen.className = "screen";
+
+    screen.innerHTML = `
+      <div class="back" onclick="goTypes()">← Back</div>
+      <p>${selectedType.description}</p>
+      <div class="card" onclick="goFoods()">See Food Cures</div>
+    `;
+
+    app.appendChild(screen);
+  }
+
+  if (currentScreen === "foods") {
+
+    const foods = data.foods[selectedType.pattern];
+
+    const screen = document.createElement("div");
+    screen.className = "screen";
+
+    let foodHTML = foods.items.map(f => `<div class="food">${f}</div>`).join("");
+
+    screen.innerHTML = `
+      <div class="back" onclick="goDetail(selectedType)">← Back</div>
+      <div class="small">${foods.label}</div>
+      ${foodHTML}
+    `;
+
+    app.appendChild(screen);
+  }
+
+}
+
+function goTypes() {
+  currentScreen = "types";
+  render();
+}
+
+function goDetail(type) {
+  selectedType = type;
+  currentScreen = "detail";
+  render();
+}
+
+function goFoods() {
+  currentScreen = "foods";
+  render();
+}
+
+function goSymptoms() {
+  currentScreen = "symptoms";
+  render();
+}
+
+render();
+
+</script>
+
+</body>
+</html>
