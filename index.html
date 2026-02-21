@@ -16,7 +16,6 @@ body {
   color: white;
   padding: 16px;
   font-size: 20px;
-text-align: center;
   text-align: center;
 }
 
@@ -70,188 +69,54 @@ text-align: center;
 <script>
 
 const types = [
-
-  {
-    name: "Stiff neck headache",
-    subtitle: "Headache with stiffness in the neck",
-    pattern: "Wind-Cold"
-  },
-
-  {
-    name: "Head feels swollen",
-    subtitle: "Swollen or inflamed feeling in the head",
-    pattern: "Wind-Heat"
-  },
-
-  {
-    name: "Heavy cloudy head",
-    subtitle: "Heavy cloudy head with sluggish body feeling",
-    pattern: "Wind-Damp"
-  },
-
-  {
-    name: "Temple headache",
-    subtitle: "Pain at the temples, often throbbing or pulsing",
-    pattern: "Liver Yang"
-  },
-
-  {
-    name: "Dizzy heavy headache",
-    subtitle: "Heavy feeling in the head with dizziness or fogginess",
-    pattern: "Phlegm-Damp"
-  },
-
-  {
-    name: "Dull throbbing headache from exhaustion",
-    subtitle: "Dull throbbing headache with fatigue or brain fog",
-    pattern: "Qi Deficiency"
-  },
-
-  {
-    name: "Lightheaded tight headache",
-    subtitle: "Tight headache with dizziness or lightheadedness",
-    pattern: "Blood Deficiency"
-  },
-
-  {
-    name: "Inside pressure",
-    subtitle: "Pressure or hollow feeling inside the head",
-    pattern: "Kidney Deficiency"
-  },
-
-  {
-    name: "Fixed spot headache",
-    subtitle: "Sharp stabbing pain in a fixed spot",
-    pattern: "Blood Stasis"
-  }
-
+  { name: "Stiff neck headache", subtitle: "Headache with stiffness in the neck", pattern: "Wind-Cold" },
+  { name: "Head feels swollen", subtitle: "Swollen or inflamed feeling in the head", pattern: "Wind-Heat" },
+  { name: "Heavy cloudy head", subtitle: "Heavy cloudy head with sluggish body feeling", pattern: "Wind-Damp" },
+  { name: "Temple headache", subtitle: "Pain at the temples, often throbbing or pulsing", pattern: "Liver Yang" },
+  { name: "Dizzy heavy headache", subtitle: "Heavy feeling in the head with dizziness or fogginess", pattern: "Phlegm-Damp" },
+  { name: "Dull throbbing headache from exhaustion", subtitle: "Dull throbbing headache with fatigue or brain fog", pattern: "Qi Deficiency" },
+  { name: "Lightheaded tight headache", subtitle: "Tight headache with dizziness or lightheadedness", pattern: "Blood Deficiency" },
+  { name: "Inside pressure", subtitle: "Pressure or hollow feeling inside the head", pattern: "Kidney Deficiency" },
+  { name: "Fixed spot headache", subtitle: "Sharp stabbing pain in a fixed spot", pattern: "Blood Stasis" }
 ];
 
 const foods = {
-
   "Wind-Cold": {
     label: "warms and disperses cold",
-    items: [
-      "Fresh ginger",
-      "Green onion",
-      "Peppermint",
-      "Spearmint",
-      "Sweet basil",
-      "Fennel",
-      "Chicken egg",
-      "Mustard seed",
-      "Cayenne pepper"
-    ]
+    items: ["Fresh ginger","Green onion","Peppermint","Spearmint","Sweet basil","Fennel","Chicken egg","Mustard seed","Cayenne pepper"]
   },
-
   "Wind-Heat": {
     label: "clears heat and relieves inflammation",
-    items: [
-      "Banana",
-      "Salt",
-      "Spinach",
-      "Strawberry",
-      "Cucumber",
-      "Liver",
-      "Mung bean",
-      "Peppermint",
-      "Beet leaves"
-    ]
+    items: ["Banana","Salt","Spinach","Strawberry","Cucumber","Liver","Mung bean","Peppermint","Beet leaves"]
   },
-
   "Wind-Damp": {
     label: "clears dampness and lightens the body",
-    items: [
-      "Rice",
-      "Adzuki beans",
-      "Orange peel",
-      "Celery",
-      "Peppermint",
-      "Basil",
-      "Green onion"
-    ]
+    items: ["Rice","Adzuki beans","Orange peel","Celery","Peppermint","Basil","Green onion"]
   },
-
   "Liver Yang": {
     label: "calms rising energy",
-    items: [
-      "Celery",
-      "Egg yolk",
-      "Cheese",
-      "Kidney beans",
-      "Duck",
-      "Oyster",
-      "Pork"
-    ]
+    items: ["Celery","Egg yolk","Cheese","Kidney beans","Duck","Oyster","Pork"]
   },
-
   "Phlegm-Damp": {
     label: "clears dampness and transforms phlegm",
-    items: [
-      "Rice",
-      "Adzuki beans",
-      "Orange peel",
-      "Celery",
-      "Peppermint",
-      "Basil",
-      "Green onion"
-    ]
+    items: ["Rice","Adzuki beans","Orange peel","Celery","Peppermint","Basil","Green onion"]
   },
-
   "Qi Deficiency": {
     label: "supports energy and vitality",
-    items: [
-      "Rice",
-      "Potato",
-      "Carrot",
-      "Chicken",
-      "Dates",
-      "Oats"
-    ]
+    items: ["Rice","Potato","Carrot","Chicken","Dates","Oats"]
   },
-
   "Blood Deficiency": {
     label: "nourishes the blood",
-    items: [
-      "Beet",
-      "Spinach",
-      "Egg",
-      "Chicken",
-      "Grapes",
-      "Cherry"
-    ]
+    items: ["Beet","Spinach","Egg","Chicken","Grapes","Cherry"]
   },
-
   "Kidney Deficiency": {
     label: "nourishes kidney energy and supports the head",
-    items: [
-      "Black sesame",
-      "Walnut",
-      "Mulberry",
-      "Pork",
-      "Beef",
-      "Chicken",
-      "Bone marrow",
-      "Royal jelly"
-    ]
+    items: ["Black sesame","Walnut","Mulberry","Pork","Beef","Chicken","Bone marrow","Royal jelly"]
   },
-
   "Blood Stasis": {
     label: "promotes circulation and reduces stagnation",
-    items: [
-      "Eggplant",
-      "Peach kernel",
-      "Vinegar",
-      "Brown sugar",
-      "Alcohol",
-      "Crab",
-      "Sardine",
-      "Tuna",
-      "Leek",
-      "Garlic"
-    ]
+    items: ["Eggplant","Peach kernel","Vinegar","Brown sugar","Alcohol","Crab","Sardine","Tuna","Leek","Garlic"]
   }
-
 };
 
 let currentScreen = "home";
@@ -303,4 +168,18 @@ function render() {
       ${foodHTML}
     `;
 
-    app
+    app.appendChild(screen);
+  }
+}
+
+function goHome() {
+  currentScreen = "home";
+  render();
+}
+
+render();
+
+</script>
+
+</body>
+</html>
