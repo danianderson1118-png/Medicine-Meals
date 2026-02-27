@@ -42,6 +42,7 @@ body {
 
 .food {
   cursor: default;
+  font-weight: normal;
 }
 
 .back {
@@ -56,22 +57,81 @@ body {
 
 <div class="header">Medicine Meals</div>
 
+<!-- HOME -->
 <div id="home" class="screen active">
   <div class="card" data-target="headache">Headache</div>
 </div>
 
+<!-- HEADACHE PATTERNS -->
 <div id="headache" class="screen">
   <div class="back" data-target="home">← Back</div>
-  <div class="card" data-target="temple">Temple headache • throbbing</div>
+
+  <div class="card" data-target="liverYang">
+    Temple headache • throbbing or pulsing
+  </div>
+
+  <div class="card" data-target="dampHead">
+    Heavy cloudy head • dizzy
+  </div>
+
+  <div class="card" data-target="qiDef">
+    Dull headache from fatigue • brain fog
+  </div>
+
+  <div class="card" data-target="pressure">
+    Inside pressure headache
+  </div>
+
+  <div class="card" data-target="fixedPain">
+    Fixed spot • stabbing or ice-pick pain
+  </div>
+
 </div>
 
-<div id="temple" class="screen">
+<!-- LIVER YANG FOOD -->
+<div id="liverYang" class="screen">
   <div class="back" data-target="headache">← Back</div>
+
   <div class="card food">Celery</div>
   <div class="card food">Spinach</div>
   <div class="card food">Banana</div>
   <div class="card food">Cucumber</div>
   <div class="card food">Peppermint</div>
+</div>
+
+<!-- DAMP FOOD -->
+<div id="dampHead" class="screen">
+  <div class="back" data-target="headache">← Back</div>
+
+  <div class="card food">Basil</div>
+  <div class="card food">Parsley</div>
+  <div class="card food">Mung bean</div>
+</div>
+
+<!-- QI DEF FOOD -->
+<div id="qiDef" class="screen">
+  <div class="back" data-target="headache">← Back</div>
+
+  <div class="card food">Sweet potato</div>
+  <div class="card food">Oats</div>
+  <div class="card food">Chicken</div>
+</div>
+
+<!-- PRESSURE FOOD -->
+<div id="pressure" class="screen">
+  <div class="back" data-target="headache">← Back</div>
+
+  <div class="card food">Chrysanthemum tea</div>
+  <div class="card food">Celery</div>
+</div>
+
+<!-- FIXED PAIN FOOD -->
+<div id="fixedPain" class="screen">
+  <div class="back" data-target="headache">← Back</div>
+
+  <div class="card food">Turmeric</div>
+  <div class="card food">Garlic</div>
+  <div class="card food">Onion</div>
 </div>
 
 <script>
@@ -83,8 +143,7 @@ function showScreen(id) {
 document.addEventListener("click", function(e) {
   const target = e.target.closest("[data-target]");
   if (!target) return;
-  const screen = target.getAttribute("data-target");
-  showScreen(screen);
+  showScreen(target.getAttribute("data-target"));
 });
 </script>
 
