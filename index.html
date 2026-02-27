@@ -5,18 +5,21 @@
 <title>Medicine Meals</title>
 
 <style>
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  background: #f2f2f7;
+  background: #dfe8e2;
+  color: #1f2a24;
 }
 
 .header {
-  background: #4a7c59;
+  background: #5f7f6f;
   color: white;
-  padding: 16px;
-  font-size: 20px;
+  padding: 18px;
+  font-size: 22px;
   text-align: center;
+  font-weight: 600;
 }
 
 .screen {
@@ -24,162 +27,246 @@ body {
 }
 
 .card {
-  background: white;
+  background: #f7faf8;
   padding: 14px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   cursor: pointer;
 }
 
 .title {
-  font-weight: bold;
-  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .subtitle {
   font-size: 13px;
-  color: #666;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.foodList {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  display: none;
 }
 
 .back {
-  margin-bottom: 12px;
-  color: #007aff;
+  margin-bottom: 14px;
+  color: #3f6b57;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.food {
-  padding: 6px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.small {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 10px;
-}
 </style>
 </head>
 
 <body>
 
 <div class="header">Medicine Meals</div>
-<div id="app"></div>
+
+<div class="screen" id="symptomScreen">
+
+<div class="card" onclick="showCategory('headache')">
+  <div class="title">Headache</div>
+  <div class="subtitle">Temple, throbbing, heavy, dull, pressure</div>
+</div>
+
+<div class="card" onclick="showCategory('diarrhea')">
+  <div class="title">Diarrhea</div>
+  <div class="subtitle">Cold, damp-heat, spleen weakness</div>
+</div>
+
+<div class="card" onclick="showCategory('hiccups')">
+  <div class="title">Hiccups</div>
+  <div class="subtitle">Cold, heat, deficiency</div>
+</div>
+
+<div class="card" onclick="showCategory('nosebleed')">
+  <div class="title">Nosebleed</div>
+  <div class="subtitle">Lungs, stomach, liver heat</div>
+</div>
+
+<div class="card" onclick="showCategory('vomiting')">
+  <div class="title">Vomiting</div>
+  <div class="subtitle">Cold, indigestion, phlegm</div>
+</div>
+
+<div class="card" onclick="showCategory('voice')">
+  <div class="title">Loss of Voice</div>
+  <div class="subtitle">Wind cold, heat, phlegm</div>
+</div>
+
+<div class="card" onclick="showCategory('cough')">
+  <div class="title">Cough</div>
+  <div class="subtitle">Cold, heat, dryness, phlegm</div>
+</div>
+
+</div>
+
+
+<div class="screen" id="categoryScreen" style="display:none"></div>
+
 
 <script>
 
-const types = [
-  { name: "Stiff neck headache", subtitle: "Headache with stiffness in the neck", pattern: "Wind-Cold" },
-  { name: "Head feels swollen", subtitle: "Swollen or inflamed feeling in the head", pattern: "Wind-Heat" },
-  { name: "Heavy cloudy head", subtitle: "Heavy cloudy head with sluggish body feeling", pattern: "Wind-Damp" },
-  { name: "Temple headache", subtitle: "Pain at the temples, often throbbing or pulsing", pattern: "Liver Yang" },
-  { name: "Dizzy heavy headache", subtitle: "Heavy feeling in the head with dizziness or fogginess", pattern: "Phlegm-Damp" },
-  { name: "Dull throbbing headache from exhaustion", subtitle: "Dull throbbing headache with fatigue or brain fog", pattern: "Qi Deficiency" },
-  { name: "Lightheaded tight headache", subtitle: "Tight headache with dizziness or lightheadedness", pattern: "Blood Deficiency" },
-  { name: "Inside pressure", subtitle: "Pressure or hollow feeling inside the head", pattern: "Kidney Deficiency" },
-  { name: "Fixed spot headache", subtitle: "Sharp stabbing pain in a fixed spot", pattern: "Blood Stasis" }
-];
+function showCategory(type) {
 
-const foods = {
-  "Wind-Cold": {
-    label: "warms and disperses cold",
-    items: ["Fresh ginger","Green onion","Peppermint","Spearmint","Sweet basil","Fennel","Chicken egg","Mustard seed","Cayenne pepper"]
-  },
-  "Wind-Heat": {
-    label: "clears heat and relieves inflammation",
-    items: ["Banana","Salt","Spinach","Strawberry","Cucumber","Liver","Mung bean","Peppermint","Beet leaves"]
-  },
-  "Wind-Damp": {
-    label: "clears dampness and lightens the body",
-    items: ["Rice","Adzuki beans","Orange peel","Celery","Peppermint","Basil","Green onion"]
-  },
-  "Liver Yang": {
-    label: "calms rising energy",
-    items: ["Celery","Egg yolk","Cheese","Kidney beans","Duck","Oyster","Pork"]
-  },
-  "Phlegm-Damp": {
-    label: "clears dampness and transforms phlegm",
-    items: ["Rice","Adzuki beans","Orange peel","Celery","Peppermint","Basil","Green onion"]
-  },
-  "Qi Deficiency": {
-    label: "supports energy and vitality",
-    items: ["Rice","Potato","Carrot","Chicken","Dates","Oats"]
-  },
-  "Blood Deficiency": {
-    label: "nourishes the blood",
-    items: ["Beet","Spinach","Egg","Chicken","Grapes","Cherry"]
-  },
-  "Kidney Deficiency": {
-    label: "nourishes kidney energy and supports the head",
-    items: ["Black sesame","Walnut","Mulberry","Pork","Beef","Chicken","Bone marrow","Royal jelly"]
-  },
-  "Blood Stasis": {
-    label: "promotes circulation and reduces stagnation",
-    items: ["Eggplant","Peach kernel","Vinegar","Brown sugar","Alcohol","Crab","Sardine","Tuna","Leek","Garlic"]
-  }
-};
+  document.getElementById("symptomScreen").style.display = "none";
+  let screen = document.getElementById("categoryScreen");
+  screen.style.display = "block";
 
-let currentScreen = "home";
-let selectedPattern = null;
+  let html = `<div class="back" onclick="goBack()">← Back</div>`;
 
-function render() {
-  const app = document.getElementById("app");
-  app.innerHTML = "";
+  const data = {
 
-  if (currentScreen === "home") {
+    headache: [
 
-    const screen = document.createElement("div");
-    screen.className = "screen";
+      ["Temple headache",
+      "Throbbing or pulsing, often sides of head",
+      "celery, basil, spinach, cucumber, banana"],
 
-    types.forEach(type => {
+      ["Heavy cloudy head",
+      "Heavy damp feeling in head or body",
+      "basil"],
 
-      const card = document.createElement("div");
-      card.className = "card";
+      ["Dull exhaustion headache",
+      "Dull throb with fatigue or brain fog",
+      "sweet potato, rice, chicken, dates"],
 
-      card.innerHTML = `
-        <div class="title">${type.name}</div>
-        <div class="subtitle">${type.subtitle}</div>
-      `;
+      ["Inside pressure headache",
+      "Deep internal pressure feeling",
+      "walnut, black sesame, kidney beans"],
 
-      card.onclick = () => {
-        selectedPattern = type.pattern;
-        currentScreen = "foods";
-        render();
-      };
+      ["Fixed stabbing headache",
+      "Sharp or ice-pick pain, fixed location",
+      "turmeric, onion, garlic, vinegar"]
 
-      screen.appendChild(card);
-    });
+    ],
 
-    app.appendChild(screen);
-  }
+    diarrhea: [
 
-  if (currentScreen === "foods") {
+      ["Cold diarrhea",
+      "Watery stools, cold abdomen",
+      "ginger, cayenne, fennel, mustard, dill, wine"],
 
-    const data = foods[selectedPattern];
+      ["Damp heat diarrhea",
+      "Explosive or foul stools, yellow color",
+      "oregano, basil, azuki bean, banana, black fungus, salt, spinach, strawberry, cucumber, beet leaves, mung bean, peppermint"],
 
-    const screen = document.createElement("div");
-    screen.className = "screen";
+      ["Liver affecting spleen",
+      "Pain before diarrhea, rumbling abdomen",
+      "apple, cucumber, carrot, mandarin, royal jelly"]
 
-    let foodHTML = data.items.map(f => `<div class="food">${f}</div>`).join("");
+    ],
 
-    screen.innerHTML = `
-      <div class="back" onclick="goHome()">← Back</div>
-      <div class="small">${data.label}</div>
-      ${foodHTML}
+    hiccups: [
+
+      ["Forceful hiccups",
+      "Loud hiccups, cold hands or feet, cold exposure",
+      "ginger, cayenne, fennel, mustard, dill, wine"],
+
+      ["Rapid hiccups",
+      "Short frequent hiccups with dryness or thirst",
+      "banana, cucumber, spinach, mung bean, peppermint"],
+
+      ["Digestive hiccups",
+      "Hiccups after eating or indigestion",
+      "radish, cardamom, basil, grapefruit"],
+
+      ["Weak hiccups",
+      "Low weak sound, fatigue",
+      "dates, chicken, sweet potato, rice"]
+
+    ],
+
+    nosebleed: [
+
+      ["Lung heat nosebleed",
+      "Fresh red bleeding with dryness",
+      "pear, apple, apricot, tomato, mung bean"],
+
+      ["Stomach heat nosebleed",
+      "Bleeding with gum swelling or bad breath",
+      "banana, cucumber, lily, salt, spinach"],
+
+      ["Liver heat nosebleed",
+      "Heavy bleeding with headache or anger",
+      "celery, spinach, mung bean, peppermint"]
+
+    ],
+
+    vomiting: [
+
+      ["Cold vomiting",
+      "Clear fluid vomiting, cold stomach",
+      "ginger, cayenne, fennel, mustard"],
+
+      ["Indigestion vomiting",
+      "Vomiting after meals, sour smell",
+      "radish, cardamom, basil, grapefruit"],
+
+      ["Phlegm vomiting",
+      "Mucus or watery vomit",
+      "mung bean, barley, cucumber"]
+
+    ],
+
+    voice: [
+
+      ["Sudden loss of voice",
+      "Occurs with cold exposure",
+      "ginger, cayenne, fennel, basil"],
+
+      ["Heat voice loss",
+      "Hoarse with throat dryness",
+      "spinach, cucumber, banana"],
+
+      ["Phlegm voice loss",
+      "Heavy unclear voice",
+      "radish, pear, ginger"]
+
+    ],
+
+    cough: [
+
+      ["Cold cough",
+      "Clear mucus, chills, body aches",
+      "ginger, cayenne, fennel, mustard, basil"],
+
+      ["Wind heat cough",
+      "Yellow mucus, sore throat",
+      "banana, spinach, cucumber, peppermint"],
+
+      ["Dry cough",
+      "Dry throat, little mucus",
+      "pear, almond, honey"],
+
+      ["Phlegm cough",
+      "Lots of mucus, chest fullness",
+      "mung bean, barley, radish"]
+
+    ]
+
+  };
+
+
+  data[type].forEach(item => {
+
+    html += `
+      <div class="card" onclick="toggleFood(this)">
+        <div class="title">${item[0]}</div>
+        <div class="subtitle">${item[1]}</div>
+        <div class="foodList">${item[2]}</div>
+      </div>
     `;
 
-    app.appendChild(screen);
-  }
+  });
+
+  screen.innerHTML = html;
 }
 
-function goHome() {
-  currentScreen = "home";
-  render();
-}
 
-render();
-
-</script>
-
-</body>
-</html>
+function toggleFood(card
