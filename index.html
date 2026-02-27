@@ -30,9 +30,18 @@ body {
   margin: 14px 0;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-  font-size: 20px;
-  font-weight: 500;
   cursor: pointer;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sub {
+  font-size: 15px;
+  color: #5f6a66;
+  margin-top: 4px;
 }
 
 .back {
@@ -64,37 +73,56 @@ const app = document.getElementById("app");
 const data = {
   headache: {
     symptoms: [
-      { name: "Temple throbbing headache",
-        foods: "Celery, spinach, banana, cucumber, peppermint" },
-
-      { name: "Heavy foggy headache",
-        foods: "Ginger, scallion, garlic, basil" },
-
-      { name: "Dull headache from exhaustion",
-        foods: "Carrot, beet, egg, chicken, dates" }
+      {
+        title: "Temple headache",
+        sub: "Throbbing or pulsing",
+        foods: "Celery, spinach, banana, cucumber, peppermint"
+      },
+      {
+        title: "Heavy headache",
+        sub: "Foggy or dizzy feeling",
+        foods: "Ginger, scallion, garlic, basil"
+      },
+      {
+        title: "Dull headache",
+        sub: "From exhaustion or deficiency",
+        foods: "Carrot, beet, egg, chicken, dates"
+      }
     ]
   },
 
   diarrhea: {
     symptoms: [
-      { name: "Cold abdominal pain with diarrhea",
-        foods: "Ginger, cinnamon, rice, chicken, fennel" },
-
-      { name: "Foul smelling urgent diarrhea",
-        foods: "Mung bean, cucumber, celery, bitter greens" }
+      {
+        title: "Cold diarrhea",
+        sub: "Pain improves with warmth",
+        foods: "Ginger, cinnamon, rice, chicken, fennel"
+      },
+      {
+        title: "Damp heat diarrhea",
+        sub: "Foul smell, urgency",
+        foods: "Mung bean, cucumber, celery, bitter greens"
+      }
     ]
   },
 
   hiccups: {
     symptoms: [
-      { name: "Forceful hiccups often with cold hands or feet",
-        foods: "Ginger, cinnamon, fennel, mustard seed" },
-
-      { name: "Loud hiccups with heat signs",
-        foods: "Banana, cucumber, spinach, peppermint" },
-
-      { name: "Weak hiccups",
-        foods: "Rice, dates, chicken, yam" }
+      {
+        title: "Forceful hiccups",
+        sub: "Often with cold hands or feet",
+        foods: "Ginger, cinnamon, fennel, mustard seed"
+      },
+      {
+        title: "Loud hiccups",
+        sub: "Heat signs present",
+        foods: "Banana, cucumber, spinach, peppermint"
+      },
+      {
+        title: "Weak hiccups",
+        sub: "Low energy or fatigue",
+        foods: "Rice, dates, chicken, yam"
+      }
     ]
   }
 };
@@ -103,20 +131,33 @@ function clear() {
   app.innerHTML = "";
 }
 
-function createCard(text, onClick) {
-  const div = document.createElement("div");
-  div.className = "card";
-  div.textContent = text;
-  div.onclick = onClick;
-  return div;
-}
-
 function showBack(fn) {
   const back = document.createElement("div");
   back.className = "back";
   back.textContent = "← Back";
   back.onclick = fn;
   app.appendChild(back);
+}
+
+function createCard(title, sub, onClick) {
+  const div = document.createElement("div");
+  div.className = "card";
+
+  const t = document.createElement("div");
+  t.className = "title";
+  t.textContent = title;
+
+  div.appendChild(t);
+
+  if (sub) {
+    const s = document.createElement("div");
+    s.className = "sub";
+    s.textContent = sub;
+    div.appendChild(s);
+  }
+
+  div.onclick = onClick;
+  return div;
 }
 
 function showHome() {
@@ -129,7 +170,7 @@ function showHome() {
   ];
 
   categories.forEach(([label, key]) => {
-    app.appendChild(createCard(label, () => showSymptoms(key)));
+    app.appendChild(createCard(label, "", () => showSymptoms(key)));
   });
 }
 
@@ -139,7 +180,11 @@ function showSymptoms(category) {
 
   data[category].symptoms.forEach(symptom => {
     app.appendChild(
-      createCard(symptom.name, () => showFoods(category, symptom))
+      createCard(
+        symptom.title,
+        symptom.sub,
+        () => showFoods(category, symptom)
+      )
     );
   });
 }
@@ -147,11 +192,6 @@ function showSymptoms(category) {
 function showFoods(category, symptom) {
   clear();
   showBack(() => showSymptoms(category));
-
-  const title = document.createElement("div");
-  title.className = "card";
-  title.textContent = symptom.name;
-  app.appendChild(title);
 
   const foods = document.createElement("div");
   foods.className = "food-list";
