@@ -63,40 +63,39 @@ const app = document.getElementById("app");
 
 const data = {
   headache: {
-    "Liver Yang Rising": "Celery, spinach, banana, cucumber, peppermint",
-    "Blood Deficiency": "Carrot, beet, grape, egg, chicken liver",
-    "Wind Cold": "Ginger, scallion, garlic, cinnamon"
+    symptoms: [
+      { name: "Temple throbbing headache",
+        foods: "Celery, spinach, banana, cucumber, peppermint" },
+
+      { name: "Heavy foggy headache",
+        foods: "Ginger, scallion, garlic, basil" },
+
+      { name: "Dull headache from exhaustion",
+        foods: "Carrot, beet, egg, chicken, dates" }
+    ]
   },
+
   diarrhea: {
-    "Cold": "Ginger, cinnamon, rice, chicken, dates",
-    "Damp Heat": "Mung bean, cucumber, bitter melon, celery",
-    "Spleen Weak": "Sweet potato, rice, squash, oats"
+    symptoms: [
+      { name: "Cold abdominal pain with diarrhea",
+        foods: "Ginger, cinnamon, rice, chicken, fennel" },
+
+      { name: "Foul smelling urgent diarrhea",
+        foods: "Mung bean, cucumber, celery, bitter greens" }
+    ]
   },
+
   hiccups: {
-    "Cold": "Ginger, cinnamon, fennel, mustard seed",
-    "Heat": "Banana, cucumber, spinach, peppermint",
-    "Deficiency": "Rice, dates, chicken, yam"
-  },
-  nosebleed: {
-    "Lung Heat": "Apple, pear, tomato, mung bean",
-    "Stomach Heat": "Cucumber, banana, spinach, lily bulb",
-    "Liver Heat": "Celery, bitter greens, mung bean"
-  },
-  vomiting: {
-    "Cold": "Ginger, cinnamon, fennel, rice",
-    "Indigestion": "Radish, hawthorn, barley malt",
-    "Phlegm": "Tangerine peel, ginger, rice"
-  },
-  voice: {
-    "Wind Cold": "Ginger, scallion, garlic, peppermint",
-    "Heat": "Pear, honey, lily bulb, loquat",
-    "Phlegm": "Radish, tangerine peel, ginger"
-  },
-  cough: {
-    "Wind Cold": "Ginger, scallion, garlic",
-    "Wind Heat": "Pear, mint, mulberry leaf",
-    "Dryness": "Pear, honey, almond",
-    "Phlegm": "Radish, tangerine peel, ginger"
+    symptoms: [
+      { name: "Forceful hiccups often with cold hands or feet",
+        foods: "Ginger, cinnamon, fennel, mustard seed" },
+
+      { name: "Loud hiccups with heat signs",
+        foods: "Banana, cucumber, spinach, peppermint" },
+
+      { name: "Weak hiccups",
+        foods: "Rice, dates, chicken, yam" }
+    ]
   }
 };
 
@@ -126,43 +125,37 @@ function showHome() {
   const categories = [
     ["Headache", "headache"],
     ["Diarrhea", "diarrhea"],
-    ["Hiccups", "hiccups"],
-    ["Nosebleed", "nosebleed"],
-    ["Vomiting", "vomiting"],
-    ["Loss of Voice", "voice"],
-    ["Cough", "cough"]
+    ["Hiccups", "hiccups"]
   ];
 
   categories.forEach(([label, key]) => {
-    app.appendChild(createCard(label, () => showPatterns(key)));
+    app.appendChild(createCard(label, () => showSymptoms(key)));
   });
 }
 
-function showPatterns(category) {
+function showSymptoms(category) {
   clear();
   showBack(showHome);
 
-  const patterns = data[category];
-
-  Object.keys(patterns).forEach(pattern => {
+  data[category].symptoms.forEach(symptom => {
     app.appendChild(
-      createCard(pattern, () => showFoods(category, pattern))
+      createCard(symptom.name, () => showFoods(category, symptom))
     );
   });
 }
 
-function showFoods(category, pattern) {
+function showFoods(category, symptom) {
   clear();
-  showBack(() => showPatterns(category));
+  showBack(() => showSymptoms(category));
 
   const title = document.createElement("div");
   title.className = "card";
-  title.textContent = pattern;
+  title.textContent = symptom.name;
   app.appendChild(title);
 
   const foods = document.createElement("div");
   foods.className = "food-list";
-  foods.textContent = data[category][pattern];
+  foods.textContent = symptom.foods;
   app.appendChild(foods);
 }
 
