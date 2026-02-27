@@ -54,15 +54,39 @@ body {
 
 <body>
 
-<div class="header">Medicine Meals — TEST</div>
+<div class="header">Medicine Meals</div>
 
 <div id="home" class="screen active">
-
-<div class="card" onclick="show('headache')">Headache</div>
-
+  <div class="card" data-target="headache">Headache</div>
 </div>
 
-
 <div id="headache" class="screen">
+  <div class="back" data-target="home">← Back</div>
+  <div class="card" data-target="temple">Temple headache • throbbing</div>
+</div>
 
-<div class="back" onclick="show('home')">← Back</div
+<div id="temple" class="screen">
+  <div class="back" data-target="headache">← Back</div>
+  <div class="card food">Celery</div>
+  <div class="card food">Spinach</div>
+  <div class="card food">Banana</div>
+  <div class="card food">Cucumber</div>
+  <div class="card food">Peppermint</div>
+</div>
+
+<script>
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+document.addEventListener("click", function(e) {
+  const target = e.target.closest("[data-target]");
+  if (!target) return;
+  const screen = target.getAttribute("data-target");
+  showScreen(screen);
+});
+</script>
+
+</body>
+</html>
