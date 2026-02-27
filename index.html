@@ -12,4 +12,59 @@ body {
 }
 
 .header {
-  background: #6f8f
+  background: #6f8f7f;
+  color: white;
+  padding: 18px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.screen {
+  padding: 16px;
+}
+
+.card {
+  background: #e6e6e6;
+  padding: 16px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back {
+  margin-bottom: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.food-box {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  line-height: 1.6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Medicine Meals</div>
+<div id="app" class="screen"></div>
+
+<script>
+
+let currentSymptom = null;
+
+const data = {
+
+  Headache: {
+    "Liver Yang Rising": ["Celery","Spinach","Banana","Cucumber","Peppermint"],
+    "Blood Deficiency": ["Carrot","Beet","Chicken","Egg","Grape"]
+  },
+
+  Diarrhea:
