@@ -79,6 +79,7 @@ const app = document.getElementById("app");
 const data = {
 
 headache: [
+
 {
 title: "Temple headache",
 sub: "Throbbing or pulsing",
@@ -86,47 +87,80 @@ pattern: "Wind-Heat / Liver Yang",
 foods: ["Celery","Spinach","Banana","Cucumber","Peppermint","Chrysanthemum",
 "Lettuce","Kale","Arugula","Dandelion greens","Beet greens","Bok choy",
 "Zucchini","Asparagus","Green beans","Mung beans","Tofu","Seaweed",
-"Apple","Pear","Strawberry","Watermelon","Cantaloupe","Honeydew"]
+"Apple","Pear","Strawberry","Watermelon"]
 },
+
 {
-title: "Heavy headache",
+title: "Heavy cloudy head",
 sub: "Foggy or dizzy",
 pattern: "Wind-Damp",
 foods: ["Ginger","Garlic","Onion","Basil","Parsley","Rosemary","Thyme",
-"Oregano","Fennel","Cardamom","Black pepper","Mustard seed","Radish",
-"Turnip","Carrot","Sweet potato","Pumpkin","Chicken","Turkey",
+"Oregano","Fennel","Cardamom","Black pepper","Mustard seed",
+"Radish","Turnip","Carrot","Sweet potato","Pumpkin","Chicken",
 "Rice","Oats","Barley","Millet","Mushrooms"]
 },
+
 {
 title: "Dull headache",
 sub: "From exhaustion",
 pattern: "Qi / Blood deficiency",
 foods: ["Carrot","Beet","Sweet potato","Yam","Potato","Chicken","Turkey",
-"Egg","Bone broth","Salmon","Sardine","Rice","Oats","Quinoa",
+"Egg","Bone broth","Salmon","Rice","Oats","Quinoa",
 "Dates","Raisins","Apricot","Cherry","Grape","Walnut","Almond"]
+},
+
+{
+title: "Inside pressure headache",
+sub: "Pressure feeling",
+pattern: "Heat / Yang rising",
+foods: ["Celery","Cucumber","Spinach","Peppermint","Chrysanthemum",
+"Apple","Pear","Watermelon","Mung beans"]
+},
+
+{
+title: "Fixed stabbing headache",
+sub: "Ice pick or sharp",
+pattern: "Blood stagnation",
+foods: ["Turmeric","Garlic","Onion","Leek","Chives","Black beans",
+"Eggplant","Peach","Vinegar","Wine"]
 }
+
 ],
 
+
 diarrhea: [
+
 {
 title: "Cold diarrhea",
-sub: "Improves with warmth",
+sub: "Pain improves with warmth",
 pattern: "Cold",
 foods: ["Ginger","Cinnamon","Fennel","Nutmeg","Clove","Black pepper",
 "Rice","Oats","Chicken","Turkey","Lamb","Egg","Carrot",
 "Sweet potato","Pumpkin","Dates","Raisins"]
 },
+
 {
-title: "Foul urgent diarrhea",
-sub: "Burning or smell",
+title: "Explosive diarrhea",
+sub: "Burning or foul smell",
 pattern: "Damp-Heat",
 foods: ["Mung beans","Adzuki beans","Cucumber","Celery","Spinach",
 "Bitter greens","Zucchini","Seaweed","Tofu","Tomato",
 "Watermelon","Pear","Apple","Banana","Peppermint"]
+},
+
+{
+title: "Chronic loose stool",
+sub: "Weak digestion",
+pattern: "Deficiency",
+foods: ["Rice","Oats","Millet","Chicken","Turkey","Egg",
+"Sweet potato","Squash","Pumpkin","Carrot","Dates","Yam"]
 }
+
 ],
 
+
 hiccups: [
+
 {
 title: "Forceful hiccups",
 sub: "Often with cold hands or feet",
@@ -134,6 +168,15 @@ pattern: "Cold",
 foods: ["Ginger","Cinnamon","Fennel","Dill","Mustard seed",
 "Garlic","Onion","Chicken","Rice","Sweet potato"]
 },
+
+{
+title: "Loud hiccups",
+sub: "Heat signs",
+pattern: "Heat",
+foods: ["Banana","Cucumber","Celery","Spinach","Peppermint",
+"Watermelon","Pear","Apple","Mung beans"]
+},
+
 {
 title: "Weak hiccups",
 sub: "Low energy",
@@ -141,9 +184,12 @@ pattern: "Deficiency",
 foods: ["Rice","Oats","Chicken","Egg","Dates","Yam",
 "Sweet potato","Carrot","Squash"]
 }
+
 ],
 
+
 cough: [
+
 {
 title: "Cold cough",
 sub: "Clear mucus",
@@ -151,6 +197,15 @@ pattern: "Wind-Cold",
 foods: ["Ginger","Garlic","Scallion","Basil","Cinnamon",
 "Fennel","Chicken soup","Onion"]
 },
+
+{
+title: "Heat cough",
+sub: "Yellow mucus",
+pattern: "Wind-Heat",
+foods: ["Pear","Mint","Mulberry","Apple","Loquat",
+"Spinach","Celery","Mung beans"]
+},
+
 {
 title: "Dry cough",
 sub: "Little mucus",
@@ -158,20 +213,33 @@ pattern: "Dryness / Yin deficiency",
 foods: ["Pear","Honey","Almond","Apple","White fungus",
 "Duck","Egg","Tofu"]
 }
+
 ],
 
-constipation: [
+
+"loss of voice": [
+
 {
-title: "Dry constipation",
-sub: "Hard stools",
-pattern: "Dryness",
-foods: ["Pear","Apple","Honey","Sesame seeds","Walnut",
-"Spinach","Sweet potato","Beet","Prunes",
-"Flaxseed","Almond","Avocado"]
+title: "Loss of voice",
+sub: "Dry throat",
+pattern: "Heat / Dryness",
+foods: ["Pear","Honey","Apple","White fungus",
+"Loquat","Tofu","Egg","Duck"]
+},
+
+{
+title: "Loss of voice",
+sub: "With mucus",
+pattern: "Phlegm",
+foods: ["Radish","Seaweed","Mung beans","Ginger",
+"Onion","Garlic"]
 }
+
 ],
+
 
 vomiting: [
+
 {
 title: "Cold vomiting",
 sub: "Better with warmth",
@@ -179,6 +247,7 @@ pattern: "Cold",
 foods: ["Ginger","Cinnamon","Fennel","Rice","Chicken",
 "Carrot","Sweet potato"]
 },
+
 {
 title: "Acid reflux vomiting",
 sub: "Burning",
@@ -186,29 +255,46 @@ pattern: "Heat",
 foods: ["Cucumber","Celery","Banana","Spinach",
 "Watermelon","Pear","Apple"]
 }
+
 ],
 
+
 nosebleed: [
+
 {
-title: "Heat nosebleed",
-sub: "Bright red",
+title: "Nosebleed",
+sub: "Bright red blood",
 pattern: "Heat",
 foods: ["Celery","Spinach","Cucumber","Tomato",
 "Watermelon","Pear","Strawberry","Mung beans"]
 }
+
 ],
 
-voice: [
+
+constipation: [
+
 {
-title: "Loss of voice",
-sub: "Dry throat",
-pattern: "Heat / Dryness",
-foods: ["Pear","Honey","Apple","White fungus",
-"Loquat","Tofu","Egg","Duck"]
+title: "Dry constipation",
+sub: "Hard stools",
+pattern: "Dryness",
+foods: ["Pear","Apple","Honey","Sesame seeds","Walnut",
+"Spinach","Sweet potato","Beet","Prunes",
+"Flaxseed","Almond","Avocado"]
+},
+
+{
+title: "Constipation",
+sub: "Weak energy",
+pattern: "Deficiency",
+foods: ["Rice","Oats","Chicken","Egg","Sweet potato",
+"Pumpkin","Dates","Yam"]
 }
+
 ]
 
 };
+
 
 
 function clear() {
