@@ -5,16 +5,14 @@
 <title>Medicine Meals</title>
 
 <style>
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  background: #dfe8e2;
-  color: #1f2a24;
+  background: #dfe7e2;
 }
 
 .header {
-  background: #5f7f6f;
+  background: #6f8f7b;
   color: white;
   padding: 18px;
   font-size: 22px;
@@ -27,39 +25,26 @@ body {
 }
 
 .card {
-  background: #f7faf8;
-  padding: 14px;
+  background: #f4f6f5;
+  padding: 16px;
   margin-bottom: 12px;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.title {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.subtitle {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-top: 4px;
-}
-
-.foodList {
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.4;
-  display: none;
+.card:hover {
+  background: #e9efec;
 }
 
 .back {
-  margin-bottom: 14px;
-  color: #3f6b57;
+  margin-bottom: 16px;
+  color: #2f4f4f;
   font-weight: 600;
   cursor: pointer;
 }
-
 </style>
 </head>
 
@@ -67,206 +52,38 @@ body {
 
 <div class="header">Medicine Meals</div>
 
-<div class="screen" id="symptomScreen">
+<div id="main" class="screen">
 
-<div class="card" onclick="showCategory('headache')">
-  <div class="title">Headache</div>
-  <div class="subtitle">Temple, throbbing, heavy, dull, pressure</div>
-</div>
-
-<div class="card" onclick="showCategory('diarrhea')">
-  <div class="title">Diarrhea</div>
-  <div class="subtitle">Cold, damp-heat, spleen weakness</div>
-</div>
-
-<div class="card" onclick="showCategory('hiccups')">
-  <div class="title">Hiccups</div>
-  <div class="subtitle">Cold, heat, deficiency</div>
-</div>
-
-<div class="card" onclick="showCategory('nosebleed')">
-  <div class="title">Nosebleed</div>
-  <div class="subtitle">Lungs, stomach, liver heat</div>
-</div>
-
-<div class="card" onclick="showCategory('vomiting')">
-  <div class="title">Vomiting</div>
-  <div class="subtitle">Cold, indigestion, phlegm</div>
-</div>
-
-<div class="card" onclick="showCategory('voice')">
-  <div class="title">Loss of Voice</div>
-  <div class="subtitle">Wind cold, heat, phlegm</div>
-</div>
-
-<div class="card" onclick="showCategory('cough')">
-  <div class="title">Cough</div>
-  <div class="subtitle">Cold, heat, dryness, phlegm</div>
-</div>
+  <div class="card" onclick="openScreen('headache')">Headache</div>
+  <div class="card" onclick="openScreen('diarrhea')">Diarrhea</div>
+  <div class="card" onclick="openScreen('hiccups')">Hiccups</div>
+  <div class="card" onclick="openScreen('nosebleed')">Nosebleed</div>
+  <div class="card" onclick="openScreen('vomiting')">Vomiting</div>
+  <div class="card" onclick="openScreen('voice')">Loss of Voice</div>
+  <div class="card" onclick="openScreen('cough')">Cough</div>
 
 </div>
 
-
-<div class="screen" id="categoryScreen" style="display:none"></div>
-
+<div id="content" class="screen" style="display:none;"></div>
 
 <script>
+function openScreen(name) {
+  document.getElementById("main").style.display = "none";
+  const content = document.getElementById("content");
+  content.style.display = "block";
 
-function showCategory(type) {
-
-  document.getElementById("symptomScreen").style.display = "none";
-  let screen = document.getElementById("categoryScreen");
-  screen.style.display = "block";
-
-  let html = `<div class="back" onclick="goBack()">← Back</div>`;
-
-  const data = {
-
-    headache: [
-
-      ["Temple headache",
-      "Throbbing or pulsing, often sides of head",
-      "celery, basil, spinach, cucumber, banana"],
-
-      ["Heavy cloudy head",
-      "Heavy damp feeling in head or body",
-      "basil"],
-
-      ["Dull exhaustion headache",
-      "Dull throb with fatigue or brain fog",
-      "sweet potato, rice, chicken, dates"],
-
-      ["Inside pressure headache",
-      "Deep internal pressure feeling",
-      "walnut, black sesame, kidney beans"],
-
-      ["Fixed stabbing headache",
-      "Sharp or ice-pick pain, fixed location",
-      "turmeric, onion, garlic, vinegar"]
-
-    ],
-
-    diarrhea: [
-
-      ["Cold diarrhea",
-      "Watery stools, cold abdomen",
-      "ginger, cayenne, fennel, mustard, dill, wine"],
-
-      ["Damp heat diarrhea",
-      "Explosive or foul stools, yellow color",
-      "oregano, basil, azuki bean, banana, black fungus, salt, spinach, strawberry, cucumber, beet leaves, mung bean, peppermint"],
-
-      ["Liver affecting spleen",
-      "Pain before diarrhea, rumbling abdomen",
-      "apple, cucumber, carrot, mandarin, royal jelly"]
-
-    ],
-
-    hiccups: [
-
-      ["Forceful hiccups",
-      "Loud hiccups, cold hands or feet, cold exposure",
-      "ginger, cayenne, fennel, mustard, dill, wine"],
-
-      ["Rapid hiccups",
-      "Short frequent hiccups with dryness or thirst",
-      "banana, cucumber, spinach, mung bean, peppermint"],
-
-      ["Digestive hiccups",
-      "Hiccups after eating or indigestion",
-      "radish, cardamom, basil, grapefruit"],
-
-      ["Weak hiccups",
-      "Low weak sound, fatigue",
-      "dates, chicken, sweet potato, rice"]
-
-    ],
-
-    nosebleed: [
-
-      ["Lung heat nosebleed",
-      "Fresh red bleeding with dryness",
-      "pear, apple, apricot, tomato, mung bean"],
-
-      ["Stomach heat nosebleed",
-      "Bleeding with gum swelling or bad breath",
-      "banana, cucumber, lily, salt, spinach"],
-
-      ["Liver heat nosebleed",
-      "Heavy bleeding with headache or anger",
-      "celery, spinach, mung bean, peppermint"]
-
-    ],
-
-    vomiting: [
-
-      ["Cold vomiting",
-      "Clear fluid vomiting, cold stomach",
-      "ginger, cayenne, fennel, mustard"],
-
-      ["Indigestion vomiting",
-      "Vomiting after meals, sour smell",
-      "radish, cardamom, basil, grapefruit"],
-
-      ["Phlegm vomiting",
-      "Mucus or watery vomit",
-      "mung bean, barley, cucumber"]
-
-    ],
-
-    voice: [
-
-      ["Sudden loss of voice",
-      "Occurs with cold exposure",
-      "ginger, cayenne, fennel, basil"],
-
-      ["Heat voice loss",
-      "Hoarse with throat dryness",
-      "spinach, cucumber, banana"],
-
-      ["Phlegm voice loss",
-      "Heavy unclear voice",
-      "radish, pear, ginger"]
-
-    ],
-
-    cough: [
-
-      ["Cold cough",
-      "Clear mucus, chills, body aches",
-      "ginger, cayenne, fennel, mustard, basil"],
-
-      ["Wind heat cough",
-      "Yellow mucus, sore throat",
-      "banana, spinach, cucumber, peppermint"],
-
-      ["Dry cough",
-      "Dry throat, little mucus",
-      "pear, almond, honey"],
-
-      ["Phlegm cough",
-      "Lots of mucus, chest fullness",
-      "mung bean, barley, radish"]
-
-    ]
-
-  };
-
-
-  data[type].forEach(item => {
-
-    html += `
-      <div class="card" onclick="toggleFood(this)">
-        <div class="title">${item[0]}</div>
-        <div class="subtitle">${item[1]}</div>
-        <div class="foodList">${item[2]}</div>
-      </div>
-    `;
-
-  });
-
-  screen.innerHTML = html;
+  content.innerHTML = `
+    <div class="back" onclick="goBack()">← Back</div>
+    <div class="card">${name.toUpperCase()}</div>
+    <div class="card">Food list coming next</div>
+  `;
 }
 
+function goBack() {
+  document.getElementById("main").style.display = "block";
+  document.getElementById("content").style.display = "none";
+}
+</script>
 
-function toggleFood(card
+</body>
+</html>
