@@ -35,10 +35,6 @@ body {
   cursor: pointer;
 }
 
-.card:hover {
-  opacity: 0.9;
-}
-
 .back {
   margin: 10px 0;
   font-size: 18px;
@@ -60,91 +56,114 @@ body {
 <body>
 
 <div class="header">Medicine Meals</div>
-
 <div class="container" id="app"></div>
 
 <script>
 const app = document.getElementById("app");
 
-function showHome() {
-  app.innerHTML = `
-    <div class="card" onclick="showPatterns('headache')">Headache</div>
-    <div class="card" onclick="showPatterns('diarrhea')">Diarrhea</div>
-    <div class="card" onclick="showPatterns('hiccups')">Hiccups</div>
-    <div class="card" onclick="showPatterns('nosebleed')">Nosebleed</div>
-    <div class="card" onclick="showPatterns('vomiting')">Vomiting</div>
-    <div class="card" onclick="showPatterns('voice')">Loss of Voice</div>
-    <div class="card" onclick="showPatterns('cough')">Cough</div>
-  `;
-}
-
 const data = {
-
-headache: {
-  "Liver Yang Rising": "Celery, spinach, banana, cucumber, peppermint",
-  "Blood Deficiency": "Carrot, beet, grape, egg, chicken liver",
-  "Wind Cold": "Ginger, scallion, garlic, cinnamon"
-},
-
-diarrhea: {
-  "Cold": "Ginger, cinnamon, rice, chicken, dates",
-  "Damp Heat": "Mung bean, cucumber, bitter melon, celery",
-  "Spleen Weak": "Sweet potato, rice, squash, oats"
-},
-
-hiccups: {
-  "Cold": "Ginger, cinnamon, fennel, mustard seed",
-  "Heat": "Banana, cucumber, spinach, peppermint",
-  "Deficiency": "Rice, dates, chicken, yam"
-},
-
-nosebleed: {
-  "Lung Heat": "Apple, pear, tomato, mung bean",
-  "Stomach Heat": "Cucumber, banana, spinach, lily bulb",
-  "Liver Heat": "Celery, bitter greens, mung bean"
-},
-
-vomiting: {
-  "Cold": "Ginger, cinnamon, fennel, rice",
-  "Indigestion": "Radish, hawthorn, barley malt",
-  "Phlegm": "Tangerine peel, ginger, rice"
-},
-
-voice: {
-  "Wind Cold": "Ginger, scallion, garlic, peppermint",
-  "Heat": "Pear, honey, lily bulb, loquat",
-  "Phlegm": "Radish, tangerine peel, ginger"
-},
-
-cough: {
-  "Wind Cold": "Ginger, scallion, garlic",
-  "Wind Heat": "Pear, mint, mulberry leaf",
-  "Dryness": "Pear, honey, almond",
-  "Phlegm": "Radish, tangerine peel, ginger"
-}
-
+  headache: {
+    "Liver Yang Rising": "Celery, spinach, banana, cucumber, peppermint",
+    "Blood Deficiency": "Carrot, beet, grape, egg, chicken liver",
+    "Wind Cold": "Ginger, scallion, garlic, cinnamon"
+  },
+  diarrhea: {
+    "Cold": "Ginger, cinnamon, rice, chicken, dates",
+    "Damp Heat": "Mung bean, cucumber, bitter melon, celery",
+    "Spleen Weak": "Sweet potato, rice, squash, oats"
+  },
+  hiccups: {
+    "Cold": "Ginger, cinnamon, fennel, mustard seed",
+    "Heat": "Banana, cucumber, spinach, peppermint",
+    "Deficiency": "Rice, dates, chicken, yam"
+  },
+  nosebleed: {
+    "Lung Heat": "Apple, pear, tomato, mung bean",
+    "Stomach Heat": "Cucumber, banana, spinach, lily bulb",
+    "Liver Heat": "Celery, bitter greens, mung bean"
+  },
+  vomiting: {
+    "Cold": "Ginger, cinnamon, fennel, rice",
+    "Indigestion": "Radish, hawthorn, barley malt",
+    "Phlegm": "Tangerine peel, ginger, rice"
+  },
+  voice: {
+    "Wind Cold": "Ginger, scallion, garlic, peppermint",
+    "Heat": "Pear, honey, lily bulb, loquat",
+    "Phlegm": "Radish, tangerine peel, ginger"
+  },
+  cough: {
+    "Wind Cold": "Ginger, scallion, garlic",
+    "Wind Heat": "Pear, mint, mulberry leaf",
+    "Dryness": "Pear, honey, almond",
+    "Phlegm": "Radish, tangerine peel, ginger"
+  }
 };
 
+function clear() {
+  app.innerHTML = "";
+}
+
+function createCard(text, onClick) {
+  const div = document.createElement("div");
+  div.className = "card";
+  div.textContent = text;
+  div.onclick = onClick;
+  return div;
+}
+
+function showBack(fn) {
+  const back = document.createElement("div");
+  back.className = "back";
+  back.textContent = "← Back";
+  back.onclick = fn;
+  app.appendChild(back);
+}
+
+function showHome() {
+  clear();
+
+  const categories = [
+    ["Headache", "headache"],
+    ["Diarrhea", "diarrhea"],
+    ["Hiccups", "hiccups"],
+    ["Nosebleed", "nosebleed"],
+    ["Vomiting", "vomiting"],
+    ["Loss of Voice", "voice"],
+    ["Cough", "cough"]
+  ];
+
+  categories.forEach(([label, key]) => {
+    app.appendChild(createCard(label, () => showPatterns(key)));
+  });
+}
+
 function showPatterns(category) {
+  clear();
+  showBack(showHome);
+
   const patterns = data[category];
 
-  let html = `<div class="back" onclick="showHome()">← Back</div>`;
-
-  for (let key in patterns) {
-    html += `<div class="card" onclick="showFoods('${category}','${key}')">${key}</div>`;
-  }
-
-  app.innerHTML = html;
+  Object.keys(patterns).forEach(pattern => {
+    app.appendChild(
+      createCard(pattern, () => showFoods(category, pattern))
+    );
+  });
 }
 
 function showFoods(category, pattern) {
-  const foods = data[category][pattern];
+  clear();
+  showBack(() => showPatterns(category));
 
-  app.innerHTML = `
-    <div class="back" onclick="showPatterns('${category}')">← Back</div>
-    <div class="card">${pattern}</div>
-    <div class="food-list">${foods}</div>
-  `;
+  const title = document.createElement("div");
+  title.className = "card";
+  title.textContent = pattern;
+  app.appendChild(title);
+
+  const foods = document.createElement("div");
+  foods.className = "food-list";
+  foods.textContent = data[category][pattern];
+  app.appendChild(foods);
 }
 
 showHome();
