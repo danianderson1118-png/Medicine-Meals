@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Medicine Meals</title>
-
-<style>
+<title>Medicine Meals</title><style>
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -44,6 +41,12 @@ body {
   margin-top: 4px;
 }
 
+.pattern {
+  font-size: 13px;
+  color: #7a8681;
+  margin-top: 6px;
+}
+
 .back {
   margin: 10px 0;
   font-size: 18px;
@@ -69,193 +72,228 @@ body {
   break-inside: avoid;
   margin-bottom: 6px;
 }
-</style>
-</head>
-
-<body>
-
-<div class="header">Medicine Meals</div>
-<div class="container" id="app"></div>
-
-<script>
+</style></head><body><div class="header">Medicine Meals</div>
+<div class="container" id="app"></div><script>
 const app = document.getElementById("app");
 
 const data = {
 
-  headache: [
-    {
-      title: "Temple headache",
-      sub: "Throbbing or pulsing",
-      foods: [
-        "Celery","Spinach","Banana","Cucumber","Peppermint","Chrysanthemum",
-        "Lettuce","Kale","Arugula","Dandelion greens","Beet greens","Bok choy",
-        "Zucchini","Asparagus","Green beans","Mung beans","Tofu","Seaweed",
-        "Apple","Pear","Strawberry","Watermelon","Cantaloupe","Honeydew"
-      ]
-    },
-    {
-      title: "Heavy headache",
-      sub: "Foggy or dizzy",
-      foods: [
-        "Ginger","Garlic","Onion","Basil","Parsley","Rosemary","Thyme",
-        "Oregano","Fennel","Cardamom","Black pepper","Mustard seed",
-        "Radish","Turnip","Carrot","Sweet potato","Pumpkin","Chicken",
-        "Turkey","Rice","Oats","Barley","Millet","Mushrooms"
-      ]
-    }
-  ],
+headache: [
+{
+title: "Temple headache",
+sub: "Throbbing or pulsing",
+pattern: "Wind-Heat / Liver Yang",
+foods: ["Celery","Spinach","Banana","Cucumber","Peppermint","Chrysanthemum",
+"Lettuce","Kale","Arugula","Dandelion greens","Beet greens","Bok choy",
+"Zucchini","Asparagus","Green beans","Mung beans","Tofu","Seaweed",
+"Apple","Pear","Strawberry","Watermelon","Cantaloupe","Honeydew"]
+},
+{
+title: "Heavy headache",
+sub: "Foggy or dizzy",
+pattern: "Wind-Damp",
+foods: ["Ginger","Garlic","Onion","Basil","Parsley","Rosemary","Thyme",
+"Oregano","Fennel","Cardamom","Black pepper","Mustard seed","Radish",
+"Turnip","Carrot","Sweet potato","Pumpkin","Chicken","Turkey",
+"Rice","Oats","Barley","Millet","Mushrooms"]
+},
+{
+title: "Dull headache",
+sub: "From exhaustion",
+pattern: "Qi / Blood deficiency",
+foods: ["Carrot","Beet","Sweet potato","Yam","Potato","Chicken","Turkey",
+"Egg","Bone broth","Salmon","Sardine","Rice","Oats","Quinoa",
+"Dates","Raisins","Apricot","Cherry","Grape","Walnut","Almond"]
+}
+],
 
-  diarrhea: [
-    {
-      title: "Cold diarrhea",
-      sub: "Improves with warmth",
-      foods: [
-        "Ginger","Cinnamon","Fennel","Nutmeg","Clove","Black pepper",
-        "Rice","Oats","Chicken","Turkey","Lamb","Egg","Carrot",
-        "Sweet potato","Pumpkin","Dates","Raisins"
-      ]
-    },
-    {
-      title: "Damp heat diarrhea",
-      sub: "Foul smell, urgency",
-      foods: [
-        "Mung beans","Adzuki beans","Cucumber","Celery","Spinach",
-        "Bitter greens","Zucchini","Seaweed","Tofu","Tomato",
-        "Watermelon","Pear","Apple","Banana","Peppermint"
-      ]
-    }
-  ],
+diarrhea: [
+{
+title: "Cold diarrhea",
+sub: "Improves with warmth",
+pattern: "Cold",
+foods: ["Ginger","Cinnamon","Fennel","Nutmeg","Clove","Black pepper",
+"Rice","Oats","Chicken","Turkey","Lamb","Egg","Carrot",
+"Sweet potato","Pumpkin","Dates","Raisins"]
+},
+{
+title: "Foul urgent diarrhea",
+sub: "Burning or smell",
+pattern: "Damp-Heat",
+foods: ["Mung beans","Adzuki beans","Cucumber","Celery","Spinach",
+"Bitter greens","Zucchini","Seaweed","Tofu","Tomato",
+"Watermelon","Pear","Apple","Banana","Peppermint"]
+}
+],
 
-  hiccups: [
-    {
-      title: "Forceful hiccups",
-      sub: "Often with cold",
-      foods: [
-        "Ginger","Cinnamon","Fennel","Dill","Mustard seed",
-        "Garlic","Onion","Chicken","Rice","Sweet potato"
-      ]
-    },
-    {
-      title: "Weak hiccups",
-      sub: "Low energy",
-      foods: [
-        "Rice","Oats","Chicken","Egg","Dates","Yam",
-        "Sweet potato","Carrot","Squash"
-      ]
-    }
-  ],
+hiccups: [
+{
+title: "Forceful hiccups",
+sub: "Often with cold hands or feet",
+pattern: "Cold",
+foods: ["Ginger","Cinnamon","Fennel","Dill","Mustard seed",
+"Garlic","Onion","Chicken","Rice","Sweet potato"]
+},
+{
+title: "Weak hiccups",
+sub: "Low energy",
+pattern: "Deficiency",
+foods: ["Rice","Oats","Chicken","Egg","Dates","Yam",
+"Sweet potato","Carrot","Squash"]
+}
+],
 
-  cough: [
-    {
-      title: "Cold cough",
-      sub: "Clear mucus",
-      foods: [
-        "Ginger","Garlic","Scallion","Basil","Cinnamon",
-        "Fennel","Chicken soup","Onion"
-      ]
-    },
-    {
-      title: "Dry cough",
-      sub: "Little mucus",
-      foods: [
-        "Pear","Honey","Almond","Apple","White fungus",
-        "Duck","Egg","Tofu"
-      ]
-    }
-  ],
+cough: [
+{
+title: "Cold cough",
+sub: "Clear mucus",
+pattern: "Wind-Cold",
+foods: ["Ginger","Garlic","Scallion","Basil","Cinnamon",
+"Fennel","Chicken soup","Onion"]
+},
+{
+title: "Dry cough",
+sub: "Little mucus",
+pattern: "Dryness / Yin deficiency",
+foods: ["Pear","Honey","Almond","Apple","White fungus",
+"Duck","Egg","Tofu"]
+}
+],
 
-  constipation: [
-    {
-      title: "Dry constipation",
-      sub: "Hard stools",
-      foods: [
-        "Pear","Apple","Honey","Sesame seeds","Walnut",
-        "Spinach","Sweet potato","Beet","Prunes",
-        "Flaxseed","Almond","Avocado"
-      ]
-    }
-  ]
+constipation: [
+{
+title: "Dry constipation",
+sub: "Hard stools",
+pattern: "Dryness",
+foods: ["Pear","Apple","Honey","Sesame seeds","Walnut",
+"Spinach","Sweet potato","Beet","Prunes",
+"Flaxseed","Almond","Avocado"]
+}
+],
+
+vomiting: [
+{
+title: "Cold vomiting",
+sub: "Better with warmth",
+pattern: "Cold",
+foods: ["Ginger","Cinnamon","Fennel","Rice","Chicken",
+"Carrot","Sweet potato"]
+},
+{
+title: "Acid reflux vomiting",
+sub: "Burning",
+pattern: "Heat",
+foods: ["Cucumber","Celery","Banana","Spinach",
+"Watermelon","Pear","Apple"]
+}
+],
+
+nosebleed: [
+{
+title: "Heat nosebleed",
+sub: "Bright red",
+pattern: "Heat",
+foods: ["Celery","Spinach","Cucumber","Tomato",
+"Watermelon","Pear","Strawberry","Mung beans"]
+}
+],
+
+voice: [
+{
+title: "Loss of voice",
+sub: "Dry throat",
+pattern: "Heat / Dryness",
+foods: ["Pear","Honey","Apple","White fungus",
+"Loquat","Tofu","Egg","Duck"]
+}
+]
 
 };
 
 
 function clear() {
-  app.innerHTML = "";
+app.innerHTML = "";
 }
 
 function backButton(fn) {
-  const b = document.createElement("div");
-  b.className = "back";
-  b.textContent = "← Back";
-  b.onclick = fn;
-  app.appendChild(b);
+const b = document.createElement("div");
+b.className = "back";
+b.textContent = "← Back";
+b.onclick = fn;
+app.appendChild(b);
 }
 
-function card(title, sub, click) {
-  const c = document.createElement("div");
-  c.className = "card";
+function card(obj, click) {
+const c = document.createElement("div");
+c.className = "card";
 
-  const t = document.createElement("div");
-  t.className = "title";
-  t.textContent = title;
-  c.appendChild(t);
+const t = document.createElement("div");
+t.className = "title";
+t.textContent = obj.title;
+c.appendChild(t);
 
-  if (sub) {
-    const s = document.createElement("div");
-    s.className = "sub";
-    s.textContent = sub;
-    c.appendChild(s);
-  }
+if (obj.sub) {
+const s = document.createElement("div");
+s.className = "sub";
+s.textContent = obj.sub;
+c.appendChild(s);
+}
 
-  c.onclick = click;
-  return c;
+if (obj.pattern) {
+const p = document.createElement("div");
+p.className = "pattern";
+p.textContent = obj.pattern;
+c.appendChild(p);
+}
+
+c.onclick = click;
+return c;
 }
 
 function showHome() {
-  clear();
+clear();
 
-  Object.keys(data).forEach(key => {
-    const label = key.charAt(0).toUpperCase() + key.slice(1);
-    app.appendChild(card(label, "", () => showSymptoms(key)));
-  });
+Object.keys(data).forEach(key => {
+const label = key.charAt(0).toUpperCase() + key.slice(1);
+app.appendChild(
+card({title: label}, () => showSymptoms(key))
+);
+});
 }
 
 function showSymptoms(category) {
-  clear();
-  backButton(showHome);
+clear();
+backButton(showHome);
 
-  data[category].forEach(symptom => {
-    app.appendChild(
-      card(symptom.title, symptom.sub,
-        () => showFoods(category, symptom))
-    );
-  });
+data[category].forEach(symptom => {
+app.appendChild(
+card(symptom, () => showFoods(category, symptom))
+);
+});
 }
 
 function showFoods(category, symptom) {
-  clear();
-  backButton(() => showSymptoms(category));
+clear();
+backButton(() => showSymptoms(category));
 
-  const box = document.createElement("div");
-  box.className = "food-box";
+const box = document.createElement("div");
+box.className = "food-box";
 
-  const list = document.createElement("div");
-  list.className = "food-list";
+const list = document.createElement("div");
+list.className = "food-list";
 
-  symptom.foods.forEach(food => {
-    const item = document.createElement("div");
-    item.className = "food-item";
-    item.textContent = food;
-    list.appendChild(item);
-  });
+symptom.foods.forEach(food => {
+const item = document.createElement("div");
+item.className = "food-item";
+item.textContent = food;
+list.appendChild(item);
+});
 
-  box.appendChild(list);
-  app.appendChild(box);
+box.appendChild(list);
+app.appendChild(box);
 }
 
 showHome();
 
-</script>
-
-</body>
+</script></body>
 </html>
