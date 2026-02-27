@@ -8,11 +8,11 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  background: #dfe7e2;
+  background: #cfd8d3;
 }
 
 .header {
-  background: #6f8f7b;
+  background: #6f8f7f;
   color: white;
   padding: 18px;
   font-size: 22px;
@@ -21,27 +21,32 @@ body {
 }
 
 .screen {
+  display: none;
   padding: 16px;
+}
+
+.active {
+  display: block;
 }
 
 .card {
-  background: #f4f6f5;
-  padding: 16px;
-  margin-bottom: 12px;
-  border-radius: 14px;
+  background: #e7ece9;
+  padding: 18px;
+  margin-bottom: 14px;
+  border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   cursor: pointer;
   font-size: 18px;
+  font-weight: 600;
+}
+
+.symptom {
+  font-size: 16px;
   font-weight: 500;
 }
 
-.card:hover {
-  background: #e9efec;
-}
-
 .back {
-  margin-bottom: 16px;
-  color: #2f4f4f;
+  margin-bottom: 14px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -52,37 +57,153 @@ body {
 
 <div class="header">Medicine Meals</div>
 
-<div id="main" class="screen">
+<!-- HOME -->
 
-  <div class="card" onclick="openScreen('headache')">Headache</div>
-  <div class="card" onclick="openScreen('diarrhea')">Diarrhea</div>
-  <div class="card" onclick="openScreen('hiccups')">Hiccups</div>
-  <div class="card" onclick="openScreen('nosebleed')">Nosebleed</div>
-  <div class="card" onclick="openScreen('vomiting')">Vomiting</div>
-  <div class="card" onclick="openScreen('voice')">Loss of Voice</div>
-  <div class="card" onclick="openScreen('cough')">Cough</div>
+<div id="home" class="screen active">
+
+<div class="card" onclick="openScreen('headache')">Headache</div>
+<div class="card" onclick="openScreen('diarrhea')">Diarrhea</div>
+<div class="card" onclick="openScreen('hiccups')">Hiccups</div>
+<div class="card" onclick="openScreen('nosebleed')">Nosebleed</div>
+<div class="card" onclick="openScreen('vomiting')">Vomiting</div>
+<div class="card" onclick="openScreen('voice')">Loss of Voice</div>
+<div class="card" onclick="openScreen('cough')">Cough</div>
 
 </div>
 
-<div id="content" class="screen" style="display:none;"></div>
+
+<!-- HEADACHE -->
+
+<div id="headache" class="screen">
+
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom" onclick="openScreen('headacheFoods')">
+Temple throbbing headache
+</div>
+
+<div class="card symptom" onclick="openScreen('headacheFoods')">
+Heavy or foggy headache
+</div>
+
+<div class="card symptom" onclick="openScreen('headacheFoods')">
+Dull headache from exhaustion
+</div>
+
+<div class="card symptom" onclick="openScreen('headacheFoods')">
+Inside pressure headache
+</div>
+
+<div class="card symptom" onclick="openScreen('headacheFoods')">
+Fixed stabbing headache
+</div>
+
+</div>
+
+
+<div id="headacheFoods" class="screen">
+<div class="back" onclick="openScreen('headache')">← Back</div>
+
+<div class="card">
+Food list coming next
+</div>
+</div>
+
+
+<!-- DIARRHEA -->
+
+<div id="diarrhea" class="screen">
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom">Cold diarrhea</div>
+<div class="card symptom">Damp heat diarrhea</div>
+<div class="card symptom">Spleen weakness diarrhea</div>
+
+</div>
+
+
+<!-- HICCUPS -->
+
+<div id="hiccups" class="screen">
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom">Forceful hiccups with cold</div>
+<div class="card symptom">Hot hiccups</div>
+<div class="card symptom">Weak hiccups</div>
+
+</div>
+
+
+<!-- NOSEBLEED -->
+
+<div id="nosebleed" class="screen">
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom">Lung heat nosebleed</div>
+<div class="card symptom">Stomach heat nosebleed</div>
+<div class="card symptom">Liver heat nosebleed</div>
+
+</div>
+
+
+<!-- VOMITING -->
+
+<div id="vomiting" class="screen">
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom">Cold vomiting</div>
+<div class="card symptom">Indigestion vomiting</div>
+<div class="card symptom">Phlegm vomiting</div>
+
+</div>
+
+
+<!-- LOSS OF VOICE -->
+
+<div id="voice" class="screen">
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom">Wind cold voice loss</div>
+<div class="card symptom">Heat voice loss</div>
+<div class="card symptom">Phlegm voice loss</div>
+
+</div>
+
+
+<!-- COUGH -->
+
+<div id="cough" class="screen">
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="card symptom">Wind cold cough</div>
+<div class="card symptom">Wind heat cough</div>
+<div class="card symptom">Dry cough</div>
+<div class="card symptom">Phlegm cough</div>
+<div class="card symptom">Liver fire cough</div>
+<div class="card symptom">Yin deficiency cough</div>
+
+</div>
+
+
 
 <script>
-function openScreen(name) {
-  document.getElementById("main").style.display = "none";
-  const content = document.getElementById("content");
-  content.style.display = "block";
 
-  content.innerHTML = `
-    <div class="back" onclick="goBack()">← Back</div>
-    <div class="card">${name.toUpperCase()}</div>
-    <div class="card">Food list coming next</div>
-  `;
+function openScreen(id) {
+
+  let screens = document.querySelectorAll(".screen");
+
+  screens.forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
 }
 
-function goBack() {
-  document.getElementById("main").style.display = "block";
-  document.getElementById("content").style.display = "none";
+
+function goHome() {
+  openScreen("home");
 }
+
 </script>
 
 </body>
