@@ -6,7 +6,7 @@
 
 <style>
 body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   background: #cfd8d3;
 }
@@ -17,7 +17,7 @@ body {
   padding: 18px;
   font-size: 22px;
   text-align: center;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .screen {
@@ -37,15 +37,32 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   cursor: pointer;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .food {
-  font-size: 16px;
-  font-weight: 500;
   cursor: default;
 }
 
 .back {
   margin-bottom: 14px;
-  font-weight:
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Medicine Meals — TEST</div>
+
+<div id="home" class="screen active">
+
+<div class="card" onclick="show('headache')">Headache</div>
+
+</div>
+
+
+<div id="headache" class="screen">
+
+<div class="back" onclick="show('home')">← Back</div
